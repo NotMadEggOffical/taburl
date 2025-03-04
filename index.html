@@ -33,11 +33,12 @@
 
     <script>
         function changeURL() {
-            if (window.location.protocol === "file:") {
-                alert("This won't work in a local file! Open in Live Server or upload it online.");
-                return;
+            if (window.history.pushState) {
+                window.history.pushState({}, "Fake Page", "/fake-url"); // ✅ Allowed change
+                console.log("URL changed to: " + window.location.href);
+            } else {
+                console.error("pushState not supported.");
             }
-            window.history.pushState({}, "", "https://example.com");
         }
     </script>
 
